@@ -1,9 +1,12 @@
 import Button from "./Button";
 import { useContext } from "react";
 import { TaskContext } from "../taskContext/taskContext";
+import { useLocation } from "react-router-dom";
 
 const Header = ({ title }) => {
   const { showAddTask, setShowAddTask } = useContext(TaskContext);
+
+  const { pathname } = useLocation();
 
   const onClick = () => {
     setShowAddTask((prevValue) => !prevValue);
@@ -12,11 +15,13 @@ const Header = ({ title }) => {
   return (
     <header className="header">
       <h1>{title}</h1>
-      <Button
-        color={showAddTask ? "red" : "green"}
-        text={showAddTask ? "Close" : "Add"}
-        onClick={onClick}
-      />
+      {pathname === "/" && (
+        <Button
+          color={showAddTask ? "red" : "green"}
+          text={showAddTask ? "Close" : "Add"}
+          onClick={onClick}
+        />
+      )}
     </header>
   );
 };
